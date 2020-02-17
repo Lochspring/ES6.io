@@ -1,30 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Tagged Templates</title>
-  <style>
-    abbr {
-      border-bottom:1px dotted grey;
-    }
-  </style>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tagged Templates</title>
+    <style>
+      abbr {
+        border-bottom: 1px dotted grey;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bio"></div>
 
-  <div class="bio">
+    <script>
+      const dict = {
+        HTML: 'Hyper Text Markup Language',
+        CSS: 'Cascading Style Sheets',
+        JS: 'JavaScript'
+      };
 
-  </div>
+      function addAbbrev(strings, ...values) {
+        const abbrev = values.map(value => {
+          if (dict[value]) {
+            return `<abbr title="${dict[value]}">${value}</abbr>`;
+          }
+          return value;
+        });
+        strings.reduce();
+        return strings.reduce((sentence, string, i) => {
+          return `${sentence}${string}${abbrev[i] || ''}`;
+        }, '');
+      }
 
-<script>
-  const dict = {
-    HTML: 'Hyper Text Markup Language',
-    CSS: 'Cascading Style Sheets',
-    JS: 'JavaScript'
-  };
+      const first = 'Wes';
+      const last = 'Bos';
 
-  const first = 'Wes';
-  const last = 'Bos';
-
-</script>
-</body>
+      const sent = addAbbrev`Hi, I'm ${first} ${last} and I love to code ${'HTML'}, ${'CSS'}, and ${'JS'}`;
+      const bio = document.querySelector('.bio');
+      const p = document.createElement('p');
+      p.innerHTML = sent;
+      bio.appendChild(p);
+    </script>
+  </body>
 </html>
